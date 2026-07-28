@@ -48,10 +48,12 @@ target_sources(CoVerLang PRIVATE FILE_SET coverlang_cxx_modules TYPE CXX_MODULES
   Include/ContractDataExtractor.cppm
 )
 target_include_directories(CoVerLang PRIVATE
-    Include/
-    ${ANTLR4_INCLUDE_DIR_ContractLex}
-    ${ANTLR4_INCLUDE_DIR_ContractPars}
-    ${ANTLR4_INCLUDE_DIR}
+  ${ANTLR4_INCLUDE_DIR_ContractLex}
+  ${ANTLR4_INCLUDE_DIR_ContractPars}
+  ${ANTLR4_INCLUDE_DIR}
+)
+target_include_directories(CoVerLang PUBLIC
+  Include/
 )
 
 target_link_libraries(CoVerLang PRIVATE "${ANTLR4_LIBRARY}")
