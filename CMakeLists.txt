@@ -41,9 +41,9 @@ antlr4_generate(ContractPars ${CMAKE_CURRENT_SOURCE_DIR}/Grammars/ContractParser
 add_library(CoVerLang SHARED
   ${ANTLR4_SRC_FILES_ContractLex}
   ${ANTLR4_SRC_FILES_ContractPars}
+  LangCode/ContractDataExtractor.cpp
 )
 target_sources(CoVerLang PRIVATE FILE_SET coverlang_cxx_modules TYPE CXX_MODULES FILES
-  LangCode/ContractDataVisitor.cppm
   LangCode/CoVerLangErrorListener.cppm
 )
 target_sources(CoVerLang PUBLIC FILE_SET coverlang_cxx_modules_pub TYPE CXX_MODULES FILES

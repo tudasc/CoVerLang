@@ -5,7 +5,7 @@ module;
 #include "ContractParser.h"
 #include "ContractTree.hpp"
 
-export module ContractDataVisitor;
+module ContractDataExtractor;
 import CoVerLangErrorListener;
 
 using namespace ContractTree;
@@ -155,7 +155,7 @@ class ContractDataVisitor : public ContractParserBaseVisitor {
 
 };
 
-export std::optional<ContractData> getContractData(std::string contract) {
+std::optional<ContractData> getContractData(std::string contract) {
     ContractDataVisitor dataVisitor;
     CoVerLangErrorListener listener;
     antlr4::ANTLRInputStream input(contract);
