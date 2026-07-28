@@ -38,7 +38,7 @@ antlr4_generate(ContractLex ${CMAKE_CURRENT_SOURCE_DIR}/Grammars/ContractLexer.g
 antlr4_generate(ContractPars ${CMAKE_CURRENT_SOURCE_DIR}/Grammars/ContractParser.g4 PARSER "" "VisitorArg" "" "${ANTLR4_TOKEN_FILES_ContractLex}" "${ANTLR4_TOKEN_DIRECTORY_ContractLex}")
 
 # Library
-add_library(CoVerLang
+add_library(CoVerLang SHARED
   ${ANTLR4_SRC_FILES_ContractLex}
   ${ANTLR4_SRC_FILES_ContractPars}
 )
@@ -53,6 +53,8 @@ target_include_directories(CoVerLang PRIVATE
     ${ANTLR4_INCLUDE_DIR_ContractPars}
     ${ANTLR4_INCLUDE_DIR}
 )
+
+target_link_libraries(CoVerLang PRIVATE "${ANTLR4_LIBRARY}")
 
 set_property(TARGET CoVerLang PROPERTY POSITION_INDEPENDENT_CODE ON)
 
