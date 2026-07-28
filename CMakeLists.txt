@@ -45,6 +45,8 @@ add_library(CoVerLang SHARED
 target_sources(CoVerLang PRIVATE FILE_SET coverlang_cxx_modules TYPE CXX_MODULES FILES
   LangCode/ContractDataVisitor.cppm
   LangCode/CoVerLangErrorListener.cppm
+)
+target_sources(CoVerLang PUBLIC FILE_SET coverlang_cxx_modules_pub TYPE CXX_MODULES FILES
   Include/ContractDataExtractor.cppm
 )
 target_include_directories(CoVerLang PRIVATE
