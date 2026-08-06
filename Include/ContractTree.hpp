@@ -116,8 +116,8 @@ namespace ContractTree {
         std::optional<int> param;
     };
     struct ContractData {
-        const std::vector<std::shared_ptr<ContractFormula>> Pre;
-        const std::vector<std::shared_ptr<ContractFormula>> Post;
+        const std::shared_ptr<ContractFormula> Pre = nullptr;
+        const std::shared_ptr<ContractFormula> Post = nullptr;
         const std::vector<TagUnit> Tags;
         Fulfillment xres = Fulfillment::UNKNOWN;
     };

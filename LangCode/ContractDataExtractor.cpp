@@ -4,6 +4,7 @@ module;
 #include "ContractParserBaseVisitor.h"
 #include "ContractParser.h"
 #include "ContractTree.hpp"
+#include <memory>
 
 module ContractDataExtractor;
 import CoVerLangErrorListener;
@@ -13,14 +14,18 @@ using namespace ContractTree;
 class ContractDataVisitor : public ContractParserBaseVisitor {
     public:
         std::any visitContract(ContractParser::ContractContext *ctx) override {
-            std::vector<std::shared_ptr<ContractFormula>> preExprs;
+            std::shared_ptr<ContractFormula> preForm;
             if (ctx->precondition()) {
+                std::vector<std::shared_ptr<ContractFormula>> preExprs;
                 preExprs = std::any_cast<std::vector<std::shared_ptr<ContractFormula>>>(this->visit(ctx->precondition()->exprList()));
+                preForm = std::make_shared<ContractFormula>(preExprs, ctx->precondition()->getText(), FormulaType::AND);
             }
 
-            std::vector<std::shared_ptr<ContractFormula>> postExprs;
+            std::shared_ptr<ContractFormula> postForm;
             if (ctx->postcondition()) {
+                std::vector<std::shared_ptr<ContractFormula>> postExprs;
                 postExprs = std::any_cast<std::vector<std::shared_ptr<ContractFormula>>>(this->visit(ctx->postcondition()->exprList()));
+                postForm = std::make_shared<ContractFormula>(postExprs, ctx->postcondition()->getText(), FormulaType::AND);
             }
 
             std::vector<TagUnit> tags;
@@ -37,7 +42,7 @@ class ContractDataVisitor : public ContractParserBaseVisitor {
             if (ctx->ContractMarkerExpFail()) f = Fulfillment::BROKEN;
             if (ctx->ContractMarkerExpSucc()) f = Fulfillment::FULFILLED;
 
-            return ContractData{preExprs, postExprs, tags, f};
+            return ContractData{preForm, postForm, tags, f};
         }
 
         std::any visitExprList(ContractParser::ExprListContext *ctx) override {
