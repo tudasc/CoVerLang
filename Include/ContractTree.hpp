@@ -6,18 +6,10 @@
  * If you are defining a new verifier, you will need to include this file and the ContractManager.
  */
 
-#include <functional>
 #include <string>
 #include <memory>
 #include <optional>
 #include <vector>
-
-namespace ContractPassUtility {
-    using DebugHdlr = std::function<bool()>;
-    struct GenericWLRes{
-        DebugHdlr handleDebug = nullptr;
-    };
-}
 
 namespace ContractTree {
     enum struct FormulaType { AND, OR, XOR, RWOP, READ, WRITE, ALLOC, FREE, CALL, CALLTAG, RELEASE, PARAM };
@@ -107,7 +99,6 @@ namespace ContractTree {
     };
     struct ContractExpression : ContractFormula {
         ContractExpression(std::string _str, std::shared_ptr<const Operation> _op) : ContractFormula(_str), OP{_op} {}
-        std::shared_ptr<const ContractPassUtility::GenericWLRes> WorklistInfo;
         const std::shared_ptr<const Operation> OP;
     };
 
